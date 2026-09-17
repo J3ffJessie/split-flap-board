@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Split-Flap Display</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-header">
+        <h1 class="page-title">Split-Flap Display</h1>
+        <p class="page-subtitle">Authentic airport departure board animation</p>
+      </header>
+
+      <main id="app" class="board-container" role="main">
+        <!-- FlapBoard injected here by main.ts -->
+      </main>
+
+      <footer class="controls">
+        <button id="btn-next" type="button">Next String</button>
+        <button id="btn-auto" type="button">Start Auto-Cycle</button>
+        <span id="current-label" class="status-label"></span>
+      </footer>
+    </div>
+  </body>
+</html>

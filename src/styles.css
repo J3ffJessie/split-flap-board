@@ -1,0 +1,205 @@
+/* ── Base reset / layout ─────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #111;
+  --tile-bg: #1a1a1a;
+  --tile-fg: #f5c518;          /* amber — classic departure board colour */
+  --tile-border: #2a2a2a;
+  --tile-shadow: rgba(245, 197, 24, 0.15);
+  --tile-width: 44px;
+  --tile-height: 60px;
+  --tile-font-size: 36px;
+  --tile-radius: 4px;
+  --gap: 3px;
+
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--tile-fg);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+/* ── Page layout ─────────────────────────────────────────────────────────── */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.page-header {
+  text-align: center;
+}
+
+.page-title {
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tile-fg);
+  opacity: 0.85;
+}
+
+.page-subtitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--tile-fg);
+  opacity: 0.4;
+  margin-top: 0.25rem;
+}
+
+/* ── Board container ─────────────────────────────────────────────────────── */
+
+.board-container {
+  background: var(--surface);
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow:
+    0 0 40px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* ── Split-flap board ────────────────────────────────────────────────────── */
+
+.flap-board {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap);
+  perspective: 400px;
+}
+
+/* ── Individual tile ─────────────────────────────────────────────────────── */
+
+.flap-tile {
+  position: relative;
+  width: var(--tile-width);
+  height: var(--tile-height);
+  perspective: 300px;
+  transform-style: preserve-3d;
+}
+
+.flap-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--tile-bg);
+  color: var(--tile-fg);
+  font-size: var(--tile-font-size);
+  font-weight: 700;
+  font-family: 'Courier New', Courier, monospace;
+  border-radius: var(--tile-radius);
+  border: 1px solid var(--tile-border);
+  backface-visibility: hidden;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  user-select: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 0 8px var(--tile-shadow);
+
+  /* Horizontal divider line — the centre hinge */
+  background-image: linear-gradient(
+    to bottom,
+    transparent 49%,
+    #000 49%,
+    #000 51%,
+    transparent 51%
+  );
+}
+
+.flap-upper {
+  transform-origin: bottom center;
+}
+
+.flap-lower {
+  transform-origin: top center;
+}
+
+/* ── ARIA live region (visually hidden) ───────────────────────────────────── */
+
+.flap-aria-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Controls ─────────────────────────────────────────────────────────────── */
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  background: #1e1e1e;
+  color: var(--tile-fg);
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+button:hover {
+  background: #252525;
+  border-color: var(--tile-fg);
+}
+
+button:active {
+  background: #0f0f0f;
+}
+
+.status-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  min-width: 12ch;
+  text-align: center;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .flap-panel {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ── Dark-only app — no light-mode override needed (it's a departure board) ── */
