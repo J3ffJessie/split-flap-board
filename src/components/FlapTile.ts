@@ -16,12 +16,12 @@ export class FlapTile {
   readonly element: HTMLElement;
 
   private currentIndex: number;
-  private targetIndex: number;
   private animating = false;
   private rafId: number | null = null;
   private startTime: number | null = null;
   private stepsTotal = 0;
   private stepsCompleted = 0;
+  private midpointPassed = false;
 
   constructor(initialChar = ' ') {
     this.element = document.createElement('div');
@@ -29,7 +29,6 @@ export class FlapTile {
     this.element.setAttribute('aria-hidden', 'true');
 
     this.currentIndex = this.glyphIndex(initialChar);
-    this.targetIndex = this.currentIndex;
 
     this.renderStatic();
   }
@@ -47,8 +46,6 @@ export class FlapTile {
     const targetIdx = this.glyphIndex(char.toUpperCase());
 
     if (targetIdx === this.currentIndex && !this.animating) return;
-
-    this.targetIndex = targetIdx;
 
     // Number of steps forward through the glyph ring
     const steps = this.stepsForward(this.currentIndex, targetIdx);
@@ -92,6 +89,7 @@ export class FlapTile {
 
   private scheduleNextFlip(): void {
     this.startTime = null;
+    this.midpointPassed = false;
     this.rafId = requestAnimationFrame((ts) => this.animateFlip(ts));
   }
 
@@ -130,10 +128,13 @@ export class FlapTile {
         lower.style.transform = `rotateX(${angle}deg)`;
         lower.style.zIndex = '2';
       }
-      // Advance current char at the halfway point
-      this.currentIndex = (this.currentIndex + 1) % GLYPH_SEQUENCE.length;
-      this.updatePanelChar(upper, GLYPH_SEQUENCE[this.currentIndex]);
-      this.updatePanelChar(lower, GLYPH_SEQUENCE[this.currentIndex]);
+      // Advance current char exactly once at the midpoint
+      if (!this.midpointPassed) {
+        this.midpointPassed = true;
+        this.currentIndex = (this.currentIndex + 1) % GLYPH_SEQUENCE.length;
+        this.updatePanelChar(upper, GLYPH_SEQUENCE[this.currentIndex]);
+        this.updatePanelChar(lower, GLYPH_SEQUENCE[this.currentIndex]);
+      }
     }
 
     if (progress < 1) {
