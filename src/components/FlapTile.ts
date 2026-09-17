@@ -3,14 +3,20 @@
  *
  * Animates from current character to target by cycling through the glyph
  * sequence using CSS 3D rotateX transforms driven by requestAnimationFrame.
- * Each full character flip takes ~250ms.  The staggered delay is applied
- * by the caller (FlapBoard) so tiles cascade across the board.
+ * Each intermediate-glyph step takes ~100ms — a tile far from its target in
+ * the glyph sequence (e.g. space → '#') steps through every glyph in
+ * between, so this per-step cost (not the column stagger) is what dominates
+ * how long a full phrase takes to animate in. The staggered delay between
+ * columns is applied by the caller (FlapBoard) so tiles cascade across the
+ * board.
  */
+
+import { playFlipClick } from '../audio/flipSound.js';
 
 export const GLYPH_SEQUENCE: readonly string[] =
   ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:!?-\'"/()@#'.split('');
 
-const FLIP_DURATION_MS = 250;
+export const FLIP_DURATION_MS = 150;
 
 export class FlapTile {
   readonly element: HTMLElement;
@@ -77,7 +83,11 @@ export class FlapTile {
 
   private glyphIndex(char: string): number {
     const idx = GLYPH_SEQUENCE.indexOf(char);
-    return idx === -1 ? 0 : idx; // fallback to space
+    if (idx !== -1) return idx;
+    // Falls back to '#' rather than space: an unsupported character (e.g. an
+    // unhandled Unicode punctuation mark) should be visibly obvious, not a
+    // silent gap that looks like a rendering bug.
+    return GLYPH_SEQUENCE.indexOf('#');
   }
 
   private stepsForward(from: number, to: number): number {
@@ -142,6 +152,7 @@ export class FlapTile {
     } else {
       // Flip complete
       this.stepsCompleted++;
+      playFlipClick();
       if (upper) upper.style.transform = 'rotateX(0deg)';
       if (lower) lower.style.transform = 'rotateX(0deg)';
       this.renderStatic();

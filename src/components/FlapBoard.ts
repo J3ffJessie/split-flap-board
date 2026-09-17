@@ -1,29 +1,37 @@
 /**
- * FlapBoard — a horizontal row of FlapTiles.
- *
- * Accepts a target string and diffs it against the current displayed string,
- * animating only the tiles that need to change.  Tiles are staggered by 40ms
- * per position so the cascade completes within ~1.5 s for a 20-char line:
- *   stagger 0–760ms + flip ~250ms = ~1010ms total.
+ * FlapBoard — a fixed grid of FlapTiles (rows × width), like a real
+ * departure board's physical size. Word-wraps the target text across as
+ * many of those rows as it needs; any rows beyond that just go blank,
+ * rather than the board growing or shrinking to fit — so switching between
+ * a one-line quote and a long one never resizes the board itself. Only
+ * tiles whose character actually changed animate. Tiles are staggered by a
+ * short delay per column position so a row's cascade reads left-to-right;
+ * every row shares the same per-column stagger, so using more rows doesn't
+ * lengthen the animation.
  */
 
-import { FlapTile } from './FlapTile.js';
+import { FlapTile, FLIP_DURATION_MS } from './FlapTile.js';
+import { wrapText } from '../utils/wrapText.js';
+import { sanitizeForBoard } from '../utils/sanitizeForBoard.js';
 
-const TILE_STAGGER_MS = 40;
+const TILE_STAGGER_MS = 25;
 const DEFAULT_WIDTH = 20;
+const DEFAULT_ROWS = 8;
 
 export class FlapBoard {
   readonly element: HTMLElement;
   /** Live ARIA text mirror — updated after each full board animation. */
   readonly ariaRegion: HTMLElement;
 
-  private tiles: FlapTile[];
-  private currentString: string;
+  private rows: FlapTile[][] = [];
+  private currentLines: string[];
   private width: number;
+  private rowCount: number;
 
-  constructor(width = DEFAULT_WIDTH) {
+  constructor(width = DEFAULT_WIDTH, rowCount = DEFAULT_ROWS) {
     this.width = width;
-    this.currentString = ' '.repeat(width);
+    this.rowCount = rowCount;
+    this.currentLines = Array.from({ length: rowCount }, () => ' '.repeat(width));
 
     this.element = document.createElement('div');
     this.element.className = 'flap-board';
@@ -36,54 +44,74 @@ export class FlapBoard {
     this.ariaRegion.setAttribute('aria-atomic', 'true');
     this.ariaRegion.className = 'flap-aria-live';
 
-    this.tiles = Array.from({ length: width }, () => {
-      const tile = new FlapTile(' ');
-      this.element.appendChild(tile.element);
-      return tile;
-    });
+    this.buildRows();
   }
 
   /**
-   * Animate the board to display the given string.
-   * Pads/truncates to board width.  Only changed tiles animate.
+   * Word-wraps text across up to `rowCount` rows and animates each row's
+   * tiles toward the wrapped line (rows beyond what the text needs go
+   * blank). Only tiles whose character actually changed animate.
    */
   setText(text: string): void {
-    const padded = text.toUpperCase().padEnd(this.width, ' ').slice(0, this.width);
+    const wrapped = wrapText(sanitizeForBoard(text), this.width, this.rowCount);
+    const lines = Array.from({ length: this.rowCount }, (_, rowIndex) =>
+      (wrapped[rowIndex] ?? '').toUpperCase().padEnd(this.width, ' ').slice(0, this.width),
+    );
 
-    for (let i = 0; i < this.width; i++) {
-      const targetChar = padded[i];
-      if (targetChar !== this.currentString[i]) {
-        this.tiles[i].setChar(targetChar, i * TILE_STAGGER_MS);
-      }
-    }
+    lines.forEach((line, rowIndex) => this.setRowText(rowIndex, line));
+    this.currentLines = lines;
 
-    this.currentString = padded;
-
-    // Update ARIA region after cascade completes (~1.5s is safe)
-    const cascadeDuration = (this.width - 1) * TILE_STAGGER_MS + 300;
+    // Update ARIA region after the column cascade completes and the last
+    // tile's flip has had time to settle.
+    const cascadeDuration = (this.width - 1) * TILE_STAGGER_MS + FLIP_DURATION_MS + 50;
     setTimeout(() => {
-      this.ariaRegion.textContent = padded.trim();
+      this.ariaRegion.textContent = lines
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .join('. ');
     }, cascadeDuration);
   }
 
-  /** Current displayed string (may differ from target during animation). */
+  /** Full displayed text across every row of the grid, one per line. */
   getCurrentText(): string {
-    return this.tiles.map((t) => t.currentChar).join('');
+    return this.rows.map((tiles) => tiles.map((t) => t.currentChar).join('')).join('\n');
   }
 
-  /** Resize the board to a new width, clearing all tiles. */
+  /** Resize the board's column width, rebuilding the grid at the same row count. */
   resize(newWidth: number): void {
     if (newWidth === this.width) return;
-
-    // Remove existing tiles
-    this.tiles.forEach((t) => t.element.remove());
-
     this.width = newWidth;
-    this.currentString = ' '.repeat(newWidth);
-    this.tiles = Array.from({ length: newWidth }, () => {
-      const tile = new FlapTile(' ');
-      this.element.appendChild(tile.element);
-      return tile;
-    });
+    this.currentLines = Array.from({ length: this.rowCount }, () => ' '.repeat(newWidth));
+    this.element.innerHTML = '';
+    this.rows = [];
+    this.buildRows();
+  }
+
+  // ── private ────────────────────────────────────────────────────────────────
+
+  private setRowText(rowIndex: number, padded: string): void {
+    const tiles = this.rows[rowIndex];
+    const previous = this.currentLines[rowIndex];
+    for (let i = 0; i < this.width; i++) {
+      const targetChar = padded[i];
+      if (targetChar !== previous[i]) {
+        tiles[i].setChar(targetChar, i * TILE_STAGGER_MS);
+      }
+    }
+  }
+
+  /** Builds the fixed rowCount × width grid once. */
+  private buildRows(): void {
+    for (let r = 0; r < this.rowCount; r++) {
+      const rowEl = document.createElement('div');
+      rowEl.className = 'flap-board-row';
+      const tiles = Array.from({ length: this.width }, () => {
+        const tile = new FlapTile(' ');
+        rowEl.appendChild(tile.element);
+        return tile;
+      });
+      this.element.appendChild(rowEl);
+      this.rows.push(tiles);
+    }
   }
 }

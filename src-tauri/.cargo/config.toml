@@ -1,0 +1,9 @@
+# GNU `ld` (from either the rustup-bundled or MSYS2 mingw64 toolchain) hits
+# "export ordinal too large" once the dependency graph gets big enough
+# (Tauri + WRY + windows-rs exceed the PE export-ordinal limit as one cdylib).
+# No MSVC Build Tools are installed on this machine. Fix: use LLD, which does
+# not have that limitation. `ld.lld.exe` ships in the toolchain's `gcc-ld`
+# directory, which must be on PATH for gcc's `-fuse-ld=lld` to find it —
+# see the build commands that also add MSYS2's mingw64/bin for `as`/`dlltool`.
+[target.x86_64-pc-windows-gnu]
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]

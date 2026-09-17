@@ -1,0 +1,295 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1789659368035,
+  "projectRoot": "C:\\Users\\JeffJ\\Projects\\splitflap-desktop",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "vite",
+        "version": "8.0.16",
+        "category": "build"
+      },
+      {
+        "name": "vitest",
+        "version": "3.2.7",
+        "category": "testing"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": "npm test",
+    "lintCommand": null,
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "vite",
+      "build": "tsc && vite build",
+      "preview": "vite preview",
+      "tauri": "tauri",
+      "test": "vitest run",
+      "test:watch": "vitest"
+    }
+  },
+  "conventions": {
+    "namingStyle": "camelCase",
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "src"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "dist": {
+      "path": "dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 1,
+      "lastAccessed": 1789659367862,
+      "keyFiles": [
+        "index.html"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 3,
+      "lastAccessed": 1789659367864,
+      "keyFiles": [
+        "css.d.ts",
+        "main.ts",
+        "styles.css"
+      ]
+    },
+    "src-tauri": {
+      "path": "src-tauri",
+      "purpose": null,
+      "fileCount": 5,
+      "lastAccessed": 1789659367900,
+      "keyFiles": [
+        "build.rs",
+        "Cargo.lock",
+        "Cargo.toml",
+        "tauri.conf.json"
+      ]
+    },
+    "dist\\assets": {
+      "path": "dist\\assets",
+      "purpose": "Static assets",
+      "fileCount": 2,
+      "lastAccessed": 1789659367903,
+      "keyFiles": [
+        "index-BaGIbDpJ.js",
+        "index-CdZPfOfc.css"
+      ]
+    },
+    "src\\assets": {
+      "path": "src\\assets",
+      "purpose": "Static assets",
+      "fileCount": 3,
+      "lastAccessed": 1789659367905,
+      "keyFiles": [
+        "tauri.svg",
+        "typescript.svg",
+        "vite.svg"
+      ]
+    },
+    "src\\components": {
+      "path": "src\\components",
+      "purpose": "UI components",
+      "fileCount": 2,
+      "lastAccessed": 1789659367907,
+      "keyFiles": [
+        "FlapBoard.ts",
+        "FlapTile.ts"
+      ]
+    },
+    "src\\tests": {
+      "path": "src\\tests",
+      "purpose": "Test files",
+      "fileCount": 4,
+      "lastAccessed": 1789659367908,
+      "keyFiles": [
+        "FlapBoard.test.ts",
+        "FlapTile.test.ts",
+        "palettes.test.ts"
+      ]
+    },
+    "src\\views": {
+      "path": "src\\views",
+      "purpose": "View templates",
+      "fileCount": 3,
+      "lastAccessed": 1789659367909,
+      "keyFiles": [
+        "SettingsDisplay.ts",
+        "SettingsQuotes.ts",
+        "SettingsTheme.ts"
+      ]
+    },
+    "src-tauri\\src": {
+      "path": "src-tauri\\src",
+      "purpose": "Source code",
+      "fileCount": 5,
+      "lastAccessed": 1789659367912,
+      "keyFiles": [
+        "lib.rs",
+        "main.rs",
+        "quotes.rs"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src\\main.ts",
+      "accessCount": 11,
+      "lastAccessed": 1789674844397,
+      "type": "file"
+    },
+    {
+      "path": "src\\components\\FlapTile.ts",
+      "accessCount": 10,
+      "lastAccessed": 1789677618258,
+      "type": "file"
+    },
+    {
+      "path": "src\\components\\FlapBoard.ts",
+      "accessCount": 7,
+      "lastAccessed": 1789676651847,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\src\\calendar_api.rs",
+      "accessCount": 5,
+      "lastAccessed": 1789674965621,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\src\\quotes.rs",
+      "accessCount": 5,
+      "lastAccessed": 1789676833008,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\src\\lib.rs",
+      "accessCount": 4,
+      "lastAccessed": 1789676839067,
+      "type": "file"
+    },
+    {
+      "path": "src\\views\\SettingsGeneral.ts",
+      "accessCount": 4,
+      "lastAccessed": 1789677637314,
+      "type": "file"
+    },
+    {
+      "path": "src",
+      "accessCount": 3,
+      "lastAccessed": 1789676604661,
+      "type": "directory"
+    },
+    {
+      "path": "src\\audio\\flipSound.ts",
+      "accessCount": 3,
+      "lastAccessed": 1789677725571,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\src\\quote_api.rs",
+      "accessCount": 2,
+      "lastAccessed": 1789668214616,
+      "type": "file"
+    },
+    {
+      "path": "src\\styles.css",
+      "accessCount": 2,
+      "lastAccessed": 1789672516460,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 2,
+      "lastAccessed": 1789674559584,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\tauri.conf.json",
+      "accessCount": 2,
+      "lastAccessed": 1789676340818,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\Cargo.toml",
+      "accessCount": 1,
+      "lastAccessed": 1789668152960,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\src\\calendar_oauth.rs",
+      "accessCount": 1,
+      "lastAccessed": 1789668241943,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 1,
+      "lastAccessed": 1789668442929,
+      "type": "file"
+    },
+    {
+      "path": "src\\utils\\sanitizeForBoard.ts",
+      "accessCount": 1,
+      "lastAccessed": 1789676638684,
+      "type": "file"
+    },
+    {
+      "path": "src\\tests\\sanitizeForBoard.test.ts",
+      "accessCount": 1,
+      "lastAccessed": 1789676644005,
+      "type": "file"
+    },
+    {
+      "path": "src\\tests\\FlapTile.test.ts",
+      "accessCount": 1,
+      "lastAccessed": 1789676663072,
+      "type": "file"
+    },
+    {
+      "path": "vite.config.ts",
+      "accessCount": 1,
+      "lastAccessed": 1789677577855,
+      "type": "file"
+    },
+    {
+      "path": "src\\tests\\flipSound.test.ts",
+      "accessCount": 1,
+      "lastAccessed": 1789677644162,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

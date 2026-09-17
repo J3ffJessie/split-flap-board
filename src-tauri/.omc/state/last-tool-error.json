@@ -1,0 +1,7 @@
+{
+  "tool_name": "PowerShell",
+  "tool_input_preview": "{\"command\":\"& \\\"$env:WINDIR\\\\System32\\\\quser.exe\\\" 2>&1\\nWrite-Output \\\"---qwinsta---\\\"\\n& \\\"$env:WINDIR\\\\System32\\\\qwinsta.exe\\\" 2>&1\",\"description\":\"List logged-in sessions to confirm which session ...",
+  "error": "Exit code 1\n& : The term 'C:\\WINDOWS\\System32\\quser.exe' is not recognized as the name of a cmdlet, function, script file, or \r\noperable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try \r\nagain.\r\nAt line:1 char:304\r\n+ ... = 'PlainText' } catch {} } }; & \"$env:WINDIR\\System32\\quser.exe\" 2>&1\r\n+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : ObjectNotFound: (C:\\WINDOWS\\System32\\quser.exe...",
+  "timestamp": "2026-09-17T18:17:27.154Z",
+  "retry_count": 1
+}

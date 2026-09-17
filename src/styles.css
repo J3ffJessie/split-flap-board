@@ -73,18 +73,28 @@ body {
   border: 1px solid #222;
   border-radius: 8px;
   padding: 24px 28px;
+  max-height: 70vh;
+  overflow-y: auto;
   box-shadow:
     0 0 40px rgba(0, 0, 0, 0.8),
     inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 /* ── Split-flap board ────────────────────────────────────────────────────── */
+/* One row per wrapped line — the board grows downward to fit longer quotes
+   and events rather than truncating to a single line. */
 
 .flap-board {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: var(--gap);
   perspective: 400px;
+}
+
+.flap-board-row {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap);
 }
 
 /* ── Individual tile ─────────────────────────────────────────────────────── */
@@ -191,6 +201,222 @@ button:active {
   opacity: 0.5;
   min-width: 12ch;
   text-align: center;
+}
+
+/* ── Settings panel ───────────────────────────────────────────────────────── */
+
+.settings-panel {
+  width: min(600px, 90vw);
+}
+
+.settings-quotes,
+.settings-theme,
+.settings-display,
+.settings-calendar,
+.settings-general {
+  background: var(--surface);
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-theme,
+.settings-display,
+.settings-calendar,
+.settings-general {
+  margin-bottom: 16px;
+}
+
+.settings-help {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  line-height: 1.4;
+}
+
+.calendar-status {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.calendar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid #222;
+  padding-top: 12px;
+}
+
+.calendar-form input {
+  background: var(--tile-bg);
+  color: var(--tile-fg);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.calendar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.display-mode-row {
+  display: flex;
+  gap: 10px;
+}
+
+.display-mode-row button[aria-pressed='true'],
+.settings-general button[aria-pressed='true'] {
+  border-color: var(--tile-fg);
+  box-shadow: 0 0 0 1px var(--tile-fg);
+}
+
+.palette-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.palette-swatch {
+  background: var(--swatch-bg, #111);
+  color: var(--swatch-color, #fff);
+  border: 1px solid var(--swatch-color, #fff);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.75rem;
+}
+
+.palette-swatch[aria-pressed='true'] {
+  box-shadow: 0 0 0 2px var(--swatch-color, #fff);
+}
+
+.custom-color-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.custom-color-row input[type='color'] {
+  width: 40px;
+  height: 32px;
+  padding: 2px;
+  background: transparent;
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.settings-heading {
+  font-size: 0.95rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.settings-error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  min-height: 1em;
+}
+
+.quote-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.quote-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  background: var(--tile-bg);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+}
+
+.quote-text {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  overflow-wrap: anywhere;
+}
+
+.quote-empty {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  font-style: italic;
+  list-style: none;
+}
+
+.quote-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.quote-actions button {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+}
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid #222;
+  padding-top: 12px;
+}
+
+.quote-form textarea,
+.quote-form input {
+  background: var(--tile-bg);
+  color: var(--tile-fg);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  resize: vertical;
+}
+
+.settings-subheading {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.quote-bulk-import {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid #222;
+  padding-top: 12px;
+}
+
+.quote-bulk-textarea {
+  background: var(--tile-bg);
+  color: var(--tile-fg);
+  border: 1px solid var(--tile-border);
+  border-radius: 4px;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  resize: vertical;
+}
+
+.quote-form-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 /* ── Reduced motion ───────────────────────────────────────────────────────── */

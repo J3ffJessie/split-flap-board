@@ -15,9 +15,9 @@
       {
         "title": "Split-Flap Display",
         "width": 960,
-        "height": 400,
+        "height": 560,
         "minWidth": 640,
-        "minHeight": 240,
+        "minHeight": 360,
         "resizable": true,
         "center": true
       }

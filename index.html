@@ -10,8 +10,7 @@
   <body>
     <div class="page">
       <header class="page-header">
-        <h1 class="page-title">Split-Flap Display</h1>
-        <p class="page-subtitle">Authentic airport departure board animation</p>
+        <h1 class="page-title">Quotes & Events</h1>
       </header>
 
       <main id="app" class="board-container" role="main">
@@ -19,10 +18,14 @@
       </main>
 
       <footer class="controls">
-        <button id="btn-next" type="button">Next String</button>
         <button id="btn-auto" type="button">Start Auto-Cycle</button>
+        <button id="btn-quote" type="button">Next Quote</button>
+        <button id="btn-event" type="button">Next Event</button>
+        <button id="btn-settings" type="button">Settings</button>
         <span id="current-label" class="status-label"></span>
       </footer>
+
+      <div id="settings-panel" class="settings-panel" hidden></div>
     </div>
   </body>
 </html>
