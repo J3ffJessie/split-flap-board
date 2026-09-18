@@ -226,8 +226,8 @@
     },
     {
       "path": "src-tauri\\src\\quote_api.rs",
-      "accessCount": 2,
-      "lastAccessed": 1789668214616,
+      "accessCount": 3,
+      "lastAccessed": 1789735006013,
       "type": "file"
     },
     {
@@ -249,15 +249,15 @@
       "type": "file"
     },
     {
-      "path": "src-tauri\\Cargo.toml",
-      "accessCount": 1,
-      "lastAccessed": 1789668152960,
+      "path": "src-tauri\\src\\calendar_oauth.rs",
+      "accessCount": 2,
+      "lastAccessed": 1789734957918,
       "type": "file"
     },
     {
-      "path": "src-tauri\\src\\calendar_oauth.rs",
+      "path": "src-tauri\\Cargo.toml",
       "accessCount": 1,
-      "lastAccessed": 1789668241943,
+      "lastAccessed": 1789668152960,
       "type": "file"
     },
     {
@@ -288,6 +288,30 @@
       "path": "src\\tests\\flipSound.test.ts",
       "accessCount": 1,
       "lastAccessed": 1789677644162,
+      "type": "file"
+    },
+    {
+      "path": "landing\\styles.css",
+      "accessCount": 1,
+      "lastAccessed": 1789735535159,
+      "type": "file"
+    },
+    {
+      "path": "landing\\index.html",
+      "accessCount": 1,
+      "lastAccessed": 1789735545888,
+      "type": "file"
+    },
+    {
+      "path": "landing\\privacy.html",
+      "accessCount": 1,
+      "lastAccessed": 1789735561279,
+      "type": "file"
+    },
+    {
+      "path": "landing\\terms.html",
+      "accessCount": 1,
+      "lastAccessed": 1789735572885,
       "type": "file"
     }
   ],
