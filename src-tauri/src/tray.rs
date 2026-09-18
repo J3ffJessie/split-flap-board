@@ -3,12 +3,14 @@
 //! running); the tray's own "Quit" item is the only way to actually exit.
 
 use tauri::{
+    image::Image,
     menu::{Menu, MenuItem},
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
     App, AppHandle, Manager, WindowEvent,
 };
 
 const MAIN_WINDOW_LABEL: &str = "main";
+const TRAY_ICON_BYTES: &[u8] = include_bytes!("../icons/tray-icon.png");
 
 fn show_and_focus_main_window(app: &AppHandle) {
     if let Some(window) = app.get_webview_window(MAIN_WINDOW_LABEL) {
@@ -23,9 +25,7 @@ pub fn build_tray(app: &App) -> tauri::Result<()> {
     let menu = Menu::with_items(app, &[&show_item, &quit_item])?;
 
     TrayIconBuilder::new()
-        .icon(app.default_window_icon().cloned().ok_or_else(|| {
-            tauri::Error::AssetNotFound("no default window icon configured".into())
-        })?)
+        .icon(Image::from_bytes(TRAY_ICON_BYTES)?)
         .menu(&menu)
         .tooltip("Split-Flap Display")
         .on_menu_event(|app, event| match event.id.as_ref() {

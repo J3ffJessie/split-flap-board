@@ -207,6 +207,12 @@
       "type": "file"
     },
     {
+      "path": "src-tauri\\src\\tray.rs",
+      "accessCount": 4,
+      "lastAccessed": 1789740989737,
+      "type": "file"
+    },
+    {
       "path": "src",
       "accessCount": 3,
       "lastAccessed": 1789676604661,
@@ -231,6 +237,12 @@
       "type": "file"
     },
     {
+      "path": "src-tauri\\Cargo.toml",
+      "accessCount": 3,
+      "lastAccessed": 1789740975134,
+      "type": "file"
+    },
+    {
       "path": "src\\styles.css",
       "accessCount": 2,
       "lastAccessed": 1789672516460,
@@ -252,12 +264,6 @@
       "path": "src-tauri\\src\\calendar_oauth.rs",
       "accessCount": 2,
       "lastAccessed": 1789734957918,
-      "type": "file"
-    },
-    {
-      "path": "src-tauri\\Cargo.toml",
-      "accessCount": 1,
-      "lastAccessed": 1789668152960,
       "type": "file"
     },
     {
@@ -312,6 +318,12 @@
       "path": "landing\\terms.html",
       "accessCount": 1,
       "lastAccessed": 1789735572885,
+      "type": "file"
+    },
+    {
+      "path": "src-tauri\\icons\\StoreLogo.png",
+      "accessCount": 1,
+      "lastAccessed": 1789740647202,
       "type": "file"
     }
   ],
