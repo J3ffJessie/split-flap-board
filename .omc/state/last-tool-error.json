@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls -la \\\"C:\\\\Users\\\\JeffJ\\\\Projects\\\\splitflap-desktop\\\\src-tauri\\\\target\\\\release\\\\bundle\\\\msi\\\\\\\" \\\"C:\\\\Users\\\\JeffJ\\\\Projects\\\\splitflap-desktop\\\\src-tauri\\\\target\\\\release\\\\bundle\\\\nsi...",
+  "error": "Exit code 2\nls: cannot access 'C:\\Users\\JeffJ\\Projects\\splitflap-desktop\\src-tauri\\target\\release\\bundle\\msi\" C:UsersJeffJProjectssplitflap-desktopsrc-tauritargetreleasebundlensis\"': No such file or directory",
+  "timestamp": "2026-09-17T21:16:46.998Z",
+  "retry_count": 1
+}

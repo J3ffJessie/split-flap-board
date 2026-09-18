@@ -219,6 +219,12 @@
       "type": "file"
     },
     {
+      "path": "README.md",
+      "accessCount": 3,
+      "lastAccessed": 1789679467737,
+      "type": "file"
+    },
+    {
       "path": "src-tauri\\src\\quote_api.rs",
       "accessCount": 2,
       "lastAccessed": 1789668214616,
@@ -252,12 +258,6 @@
       "path": "src-tauri\\src\\calendar_oauth.rs",
       "accessCount": 1,
       "lastAccessed": 1789668241943,
-      "type": "file"
-    },
-    {
-      "path": "README.md",
-      "accessCount": 1,
-      "lastAccessed": 1789668442929,
       "type": "file"
     },
     {

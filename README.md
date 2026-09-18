@@ -37,10 +37,35 @@ Use `npm run tauri dev` (after setting the `PATH` above), not a bare
 at the Vite dev server (`http://localhost:1420`), not the bundled frontend,
 so running it standalone without that dev server gives a
 "localhost refused to connect" error. `npm run tauri dev` starts both
-together. A real `cargo build --release` also works (embeds the frontend,
-no dev server needed) but is memory-hungry — this project's release profile
-enables LTO + single-codegen-unit, which needs more memory/paging file than
-some machines have available for a debug build's usual footprint.
+together.
+
+## Packaging a release build / installer
+
+`npm run tauri build` produces an installer (NSIS `.exe` and MSI, per this
+project's `bundle.targets: "all"`) under
+`src-tauri/target/release/bundle/` — that's what you hand to someone else to
+install the app; no dev server or Rust toolchain needed on their end.
+
+On a memory-constrained machine (this one has 7.4GB RAM), a release build
+can fail with `STATUS_STACK_BUFFER_OVERRUN` / "the paging file is too small
+for this operation to complete" under cargo's default parallelism — several
+LTO-enabled linking processes (one per CPU core) running at once spikes past
+the system's commit-charge limit. It is **not** actually about page file
+*size* (a 22GB page file still hit this). Fix: serialize the build with
+`CARGO_BUILD_JOBS=1` (or `cargo build --release --jobs 1` directly) — slower
+(~17 minutes on this machine vs. failing immediately at default
+parallelism), but keeps the release profile's LTO + single-codegen-unit
+fully intact:
+
+```
+export CARGO_BUILD_JOBS=1
+npm run tauri build
+```
+
+The resulting installer is **unsigned** (no code-signing certificate
+configured) — anyone installing it will see a Windows SmartScreen
+"unrecognized publisher" warning and need to click through it. Expected
+without a paid cert, not a bug.
 
 ## Google Calendar setup
 
