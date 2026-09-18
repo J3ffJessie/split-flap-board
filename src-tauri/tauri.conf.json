@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Split-Flap Display",
+        "title": "Split-Flap Desktop",
         "width": 960,
         "height": 560,
         "minWidth": 640,
